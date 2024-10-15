@@ -1,0 +1,157 @@
+The following describes and documents the inner working of a Haskell program computing Stiefel--Whitney-numbers of a given manifold. 
+It can be found at \url{https://github.com/MilanZerbin/masterthesis/code}. 
+Simply clone, open \href{https://downloads.haskell.org/ghc/latest/docs/users_guide/}{GHCi} and \texttt{:l main.hs} to be ready.
+\subsection*{Usage}
+The program encodes manifolds $M$ by their total Stiefel--Whitney-number $w(M)$.
+They have type signature 
+\begin{lstlisting}
+manifold :: ([[Monexpr]], Monexpr)
+\end{lstlisting}
+The reason for this is explained in the next section.
+The following manifolds are already implemented:
+\begin{enumerate}[noitemsep,label=$\rightarrow$]
+    \item \texttt{rp} $n$ gives $\RP^n$. Comes with a shorthand \texttt{rps} $[n_1,n_2,\dots]$ for $\RP^{n_1}\times\RP^{n_2}\times\cdots$.
+    \item \texttt{cp} $n$ gives $\CP^n$ unsurprisingly.
+    \item \texttt{s} $n$ gives $S^n$.
+    \item \texttt{emptymnf} $n$ gives an empty manifold of dimension $n$.
+    \item \texttt{p} $m\: n$ gives the Dold-manifold $P(m,n)$.
+\end{enumerate}
+All their type signatures are given by $\textbf{Int} \to ([[\text{Monexpr}]],\text{Monexpr})$, as one would expect.
+Notice how all the multiplicative generators of $\NN_\ast$ are present.
+To build from these a representative for each bordism class, the program also implements the two operations
+\begin{enumerate}[noitemsep,label=$\rightarrow$]
+    \item \texttt{x} $M\: M^\prime$ stands for the product $M\times M^\prime$.
+    \item \texttt{tt} $M\: M^\prime$ stands for the connected sum $M\connsum M^\prime$.
+\end{enumerate}
+With these two, any bordism class may be defined. 
+An example definition of the $10$-dimensional manifold $(\RP^2\times\CP^4)\connsum (S^1 \times P(1,4))$ built with these operations may look like
+\begin{lstlisting}
+m = ((rp 2) `x` (cp 4)) `tt` ((s 2) `x` (p 1 4))
+\end{lstlisting}
+where we make heavy use of Haskells possibility to cast a binary operator to infix notation by surrounding it with backticks.
+This is not neccesary of course, but makes the above declaration much more readable to humans.
+To play with the so obtained manifolds, the program implements a bunch of simple functions.
+\begin{enumerate}[noitemsep,label=$\rightarrow$]
+    \item \texttt{isnullbordant} $m$ checks if all Stiefel--Whitney-numbers vanish. Returns true if $m$ is bordant to $\emptyset$.
+    \item \texttt{isorientable} $m$ checks if $w_1(m) = 0$. Returns true if $m$ is orientable.
+    \item \texttt{isborientable} $m$ checks whether all Stiefel--Whitney-numbers containing $w_1$ vanish. Returns true if $m$ is bordant to an orientable manifold.
+    \item \texttt{isbordant} $m\: n$ checks whether all Stiefel--Whitney-numbers of $m$ and $n$ agree. Returns true if $m$ and $n$ are bordant.
+    \item \texttt{swn} $m$ returns all Stiefel--Whitney-numbers of $m$.
+\end{enumerate}
+Furthermore a \texttt{main} function is implemented which upon being called guides the user threw the process of selecting a representative of some additive generator of the bordism ring and then returns everything there is to know about this manifold.
+
+\subsection*{Code}
+We begin by defining a type \texttt{Monexpr} that holds a monomial term in some formal variables.
+It consists of a list of integers (the powers of the variables) and a single integer, its degree.
+\begin{lstlisting}
+data Monexpr = Monexpr [Int] Int deriving (Show, Eq)
+ 
+deg :: Monexpr -> Int
+deg (Monexpr _ d) = d
+
+pots :: Monexpr -> [Int]
+pots (Monexpr alpha _) = alpha
+\end{lstlisting}
+We will illustrate the working of the code on some examples, beginning by the encoding of these monomial terms.
+Let us think of all monomials in the formal alphabet $a,b,\dots,z$. 
+The program would then encode the monomial $a^4b^2d$ as its powers $[4,2,0,1]$ and degree $7$, where the zero stands for the missing $c$. 
+Similarly the monomial $b^2 d^2$ would be encoded as $[0,2,0,2]$ with degree $4$.
+We begin by implementing a multiplication of monomials, by adding their powers and degrees.
+\begin{lstlisting}
+mult :: Monexpr -> Monexpr -> Monexpr
+mult ml mr = Monexpr (zipWith (+) (pots ml) (pots mr)) ((deg ml) + (deg mr))
+\end{lstlisting}
+If we want to later compare different polynomials from different polynomial rings, we will need to shift all the variables of the one polynomial far enough to the back or front, so they do not accidentally interfere.
+These helperfunctions perform the trick.
+\begin{lstlisting}
+freevarsfront :: Int -> Monexpr -> Monexpr
+freevarsfront k (Monexpr l d) = Monexpr ([0| i <- [1..k]] ++ l) d
+freevarsback :: Int -> Monexpr -> Monexpr
+freevarsback k (Monexpr l d) = Monexpr (l ++ [0| i <- [1..k]]) d
+\end{lstlisting}
+A list of monomials will encode a polynomial. 
+For example the polynomial $a^2b + a c$ will be represented by the list $[[2,1,0] 3, [1,0,1] 2]$ of the two monomial representations.
+We wish to be able to add and multiply such polynomials, which we begin to implement na\"{i}vely.
+\begin{lstlisting}
+outadd :: [Monexpr] -> [Monexpr] -> [Monexpr]
+outadd l r =  r ++ l
+
+outmult :: [Monexpr] -> [Monexpr] -> [Monexpr]
+outmult [] _ = []
+outmult (x:xs) r = outadd (outmult xs r) (map (mult x) r)
+\end{lstlisting}
+As we want to compute in polynomial rings with relations, we implement a comparison function \texttt{gt} that tests, whether a given monomial has a too high power. 
+If we for example have the relations $a^5 = 0, b^2 = 0, c^8 = 0$, we would encode this relation as $[4,1,7] 12$, and if an other monomial, say $a^2b^3$ comes along in a polynomial $p$, the function \texttt{gt} will tell us, that one of its powers is higher than the relation allows.
+The function \texttt{killhigh} then removes $a^2b^3$ from the polynomial $p$.
+\begin{lstlisting}
+gt :: Monexpr -> Monexpr -> Bool
+gt ml mr = foldl (||) False (zipWith (<) (pots ml) (pots mr))
+
+killhigh :: Monexpr -> [Monexpr] -> [Monexpr]
+killhigh m p = filter (not . (gt m)) p
+
+killtor :: [Monexpr] -> [Monexpr]
+killtor p = map (fst) (filter (\x -> (mod (snd x) 2 == 1)) (counts p))
+\end{lstlisting}
+As we wish to compute in cohomology rings of manifolds with coefficients in $\zz$, we need to also enforce $\zz$-coefficients in our polynomials somehow. 
+This is done by the function \texttt{killtor}, which sifts threw a polynomial and removes all elements that appear an even number of times. 
+After an application of \texttt{killtor}, monomials either appear once in a polynomial, or do not appear at all, giving us the $\zz$-coefficients.\\
+A manifold $M$ will be encoded by our program as its total Stiefel--Whitney-class $w(M)$.
+This class is encoded as a list of polynomials of common degree, which are the Stiefel--Whitney-numbers.
+Let us discuss the example of $\RP^2\times\RP^2$.
+We know the Stiefel--Whitney-classes of $\RP^2\times\RP^2$ are given by $w_0 = 1 = a^0b^0$, $w_1= a + b$, $w_2 = a^2 + ab + b^2$, and $w_3 = ab^2 + a^2b$ as well as $w_4= a^2 b^2$  where $a,b$ are generators of the cohomology subject to the relations $a^3 = 0$ and $b^3=0$.
+We would then encode $\RP^2$ as $[w_0, w_1, w_2] (a^3 = 0, b^3 = 0)$, or more specifically as 
+\begin{equation*}
+    ([[ [0,0] 0],[ [0,1] 1, [1,0] 1],[ [0,2] 2, [1,1] 2, [2,0] 2],[ [1,2] 3, [2,1] 3],[ [2,2] 4]], [2,2] 4)
+\end{equation*}
+in the notation introduced above.
+With the Whitney product theorem we can deduce the total Stiefel--Whitney-number of $M\times M^\prime$ from those of $M$ and $M^\prime$.
+The function \texttt{swmult} implements this product formula.
+During the computation, it kills terms which violate the given relations.
+In the end it enforces again the $\zz$-coefficients for the result, by killing duplicates.
+\begin{lstlisting}
+swmult :: ([[Monexpr]], Monexpr) -> ([[Monexpr]], Monexpr) -> ([[Monexpr]], Monexpr)
+swmult ((wl,lrel)) ((wr,rrel)) 
+    = (take (l + r - 1) (sepdegs (killtor ( outmult wlf wrf))), rel) where
+    l = length wl
+    r = length wr
+    rel =  mult (freevarsback kr (lrel)) (freevarsfront kl (rrel))
+    kl = length (pots (head (head wl))) 
+    kr = length (pots (head (head wr))) 
+    wlf = map (freevarsback kr) (foldl (++) [] wl)
+    wrf = map (freevarsfront kl) (foldl (++) [] wr)
+\end{lstlisting}
+As in the usage-section, this multiplication has the alias \texttt{x}, to resemble more the mathematical notation.
+Furthermore there is also a similarly implemented \texttt{swadd} function with alias \text{tt}, that performs the connected sum $w(M\connsum M^\prime) = w(M) + w(M^\prime) - 1$.
+As it is considerably easier, we skip it here.\\
+We also skip the dodgy and frankly kind of hacky implementation of the function \texttt{partitions}, which given a natural number $n\in \N$ returns a list of all partitions of $n$.
+If one would wish to make this entire program more efficient, the partition function would be the place to start, as it not only is inefficient but also leads to duplicates in the list of partitions.
+We of course need a list of partitions to compute the Stiefel--Whitney-numbers of $M$ given its total Stiefel--Whitney-class.
+This is implemented by the function \texttt{swn} below.
+\begin{lstlisting}
+swn :: ([[Monexpr]],Monexpr) -> [([Int], Bool)]
+swn ((w,o)) = [(alpha, elem (o) wc) | alpha <- partitions d] where
+    wc = (killtor (foldl outmult [Monexpr [0 | k <- [0..d]] 0] [w !! i | i <- alpha])) where
+        d = (length w) - 1
+\end{lstlisting}
+Note how we use Poinc\`are-duality to turn the application of a top degree class to the fundamental class of $M$ into the question whether or not the top class \texttt{o} appears in \texttt{wc}.\\
+What is left is the list of implementations of the basic functions mentioned in the usage-section.
+Given the setup, they are all rather harmless.
+\begin{lstlisting}
+swnwithone :: ([[Monexpr]],Monexpr) -> [([Int],Bool)]
+swnwithone w = filter ((elem 1) . fst) (swn w)
+
+isorientable :: ([[Monexpr]], Monexpr) -> Bool
+isorientable w = ((fst w) !! 1) == []
+
+isborientable :: ([[Monexpr]],Monexpr) -> Bool
+isborientable w = not (foldl (||) False (map snd (swnwithone w)))
+
+isbordant :: ([[Monexpr]],Monexpr) -> ([[Monexpr]],Monexpr) -> Bool
+isbordant wl wr = (swn wl) == (swn wr)
+
+isnullbordant :: ([[Monexpr]],Monexpr) -> Bool
+isnullbordant m = isbordant m (emptymnf (deg (snd m)))
+\end{lstlisting}
+The next step would be to implement a search function, that given a set of Stiefel--Whitney-numbers searches for the representation by our generators $\RP^{2n}$ and $P(m,n)$ with product and sum, that has these Stiefel--Whitney-numbers.
+Such a reverse search would have been practical countless times writing this thesis, but its na\"ive implementation was too slow to be useful, giving in with dimensions higher than eight.

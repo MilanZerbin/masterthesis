@@ -1,0 +1,82 @@
+\documentclass{thesis}
+
+% include custom packages
+\usepackage{custompkgs/titlepage}
+\usepackage{custompkgs/commands}
+\usepackage{custompkgs/theorems}
+\usepackage{custompkgs/pagestyles}
+\addbibresource{bib/sources.bib} % include references
+
+% Set Metadata. Is used by titlepage and hyperref
+\newcommand{\semester}{Summer 2023}
+\newcommand{\thesistitle}{Spaces of Positive Scalar Curvature Metrics on Non-Orientable Manifolds}
+\newcommand{\thesisauthor}{Milan Zerbin}
+\newcommand{\submissiondate}{24.10.2023}
+\title{\thesistitle}
+\author{\thesisauthor}
+
+
+\begin{document}
+% Make a titlepage
+\pagestyle{thesistitlepage}
+\mytitlepage
+
+% empty the backside of the titlepage
+\clearpage
+\pagestyle{empty}
+\null
+\clearpage
+
+% make table of contents
+\pagestyle{tocpage}
+\tableofcontents
+\clearpage
+
+% Begin actual document
+\setcounter{page}{1}
+\pagestyle{plain}
+
+% Add introduction (unnumbered in TOC)
+\addcontentsline{toc}{section}{\hspace{1.4em}Introduction}
+\section*{Introduction}
+\input{tex/intro.tex}
+\clearpage
+
+% Chapter 1
+\section{Manifolds with extra structure}\label{sec:mnfs}
+\input{tex/thetastructures.tex}
+\input{tex/twotypes.tex}
+\clearpage
+
+% Chapter 2
+\section{Bordism with extra structure}\label{sec:bordism}
+\input{tex/thetabordism.tex}
+\input{tex/bobordism.tex}
+\clearpage
+
+% Chapter 3
+\section{Positive scalar curvature}\label{sec:psc}
+\input{tex/psc.tex}
+\input{tex/mainthm.tex}
+\clearpage
+
+% add section for references
+\pagestyle{litpage}
+\nocite{*}
+\addcontentsline{toc}{section}{\hspace{1.4em}References}
+\section*{References}
+\printbibliography[
+heading=none,
+title={References}
+]
+\clearpage
+
+% Add appendix
+\pagestyle{apppage}
+\addcontentsline{toc}{section}{\hspace{1.4em}Appendix}
+\addcontentsline{toc}{subsection}{\RN{1}\hspace{1.4em} A program computing Stiefel--Whitney-numbers}
+\setcounter{section}{0}
+\section*{Appendix}\label{appendix}
+\input{tex/appendix.tex}
+
+\end{document}

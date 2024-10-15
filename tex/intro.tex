@@ -1,0 +1,60 @@
+\subsection*{History and Motivation}
+The illustrious theorem of Gauss--Bonnet in its historic form relates  the Gauss-cuvature $K$ on an embedded surface $S\subset \R^3$ to its Euler-characteristic $\chi$ via
+\begin{equation*}
+\int_S K \,\mathrm{d}A = 2\pi\,\chi(S).
+\end{equation*}
+As an immediate consequence, the only surface that may be embedded into $\R^3$ with everywhere positive curvature is $S^2$, for if the genus $b$ of a surface is positive, the right side of the equation will be nonpositive as $\chi(S) = 2 - 2b$.
+Nowadays the theorem of Gauss-Bonnet is often held to be the first incidence of a series of striking results coupling curvature restrictions and topology.\\
+Let us introduce some terms to make the above connection more precice: 
+Given a riemannian metric $g$ on a manifold $M$, one higherdimensional analogue of the Gauss-curvature is the scalar curvature $\scal_g\colon M\to \R$.
+We call $g$ a \psc-metric if its scalar curvature is everywhere positive.
+Given any manifold $M$, the first question to ask in the spirit of the previous is whether $M$ admits a \psc-metric, the second then concerns uniqueness of such a metric.
+Since scaling a metric by a factor simply rescales its scalar curvature, the uniqueness question is foolish.
+If we can deform one \psc-metric smoothly to every other such metric, keeping scalar curvature positive along the way, we might still consider the metric to be unique in some sense.
+Therefore one should more accurately ask:
+\begin{q}
+    Can we understand the homotopy type of the space of \psc-metrics on a given manifold?
+\end{q}\noindent
+For future reference we name this space of metrics with positive scalar curvature $\mR^+(M)$, existence and uniqueness in the above sense are thus encoded in $\pi_0(\mR^+(M))$. 
+This space turns out to sometimes have very intricate and complicated topology, see \cite{hanke:psc} for some indications.
+Exemplary shown in \cite{erw:psccc}, already the connected component of the round metric in $\mR^+(S^d)$ for $d\geq 6$ has the rich topology of an infinite loop space.
+The question of existence for simply connected manifolds was however almost completely answered independently in \cite{gl:scpsc} and \cite{sy:scpsc} by the following:
+\begin{theorem*}[Gromov--Lawson, Schoen--Yau, 1980]
+    Let $M$ be a simply connected manifold of dimension $n \geq 5$. If $M$ is not spinnable, it admits a \psc-Metric. Furthermore for spinnable $M$, a neccesary condition for the existence of such a metric is given by the vanishing of the $\hat{\mathfrak{a}}$-genus of $M$.
+\end{theorem*}
+Approximately twelve years later, Stolz gave a proof \cite{sto:suf} that the condition in the spinnable case is also sufficient.
+Later, the central ingredient in the proof of the theorem above was stengthened in \cite{cher:sur} and \cite{kord:sur} to more general results allowing some comparison of $\mR^+(M)$ with $\mR^+(M^\prime)$ when $M^\prime$ is built from $M$ via specific surgeries, see \cite{georg:diss} for a selfcontained introduction and proof.
+The further development of these surgery results leads to the main source and inspiration for this thesis, the paper \cite{ew:psc}, in which they prove:
+\begin{theorem*}[Ebert--Wiemeler, 2022]
+    Let $M$ and $M^\prime$ be $d$-manifolds of tangential $2$-type $(B,\t)$ and $x\in \Omega_d^\t$ a bordism class containing a representative with \emph{admissible splitting}, such that $[M] \equiv [M^\prime] + x$ in the $\t$-bordism group $\Omega_d^\t$. 
+    Then there is a weak homotopy equivalence
+    \begin{equation*}
+        \mR^+(M) \whe \mR^+(M^\prime)
+    \end{equation*}
+    provided that $d\geq 5$.
+\end{theorem*}
+They illustrate the use of their theorem by setting $B = \BSpin$ and proving that for any simply connected spin-manifold $M$ of dimension $d\geq 5$ one has $\mR^+(M) \whe \mR^+(S^d)$ if $M$ admits a $\psc$-metric.
+Essentially, taking their theorem for granted such proofs now only consists of studying the structure of the involved bordism ring $\Omega^\t$, which is usually well understood, and having an ample supply of manifolds which admit an admissible splitting.
+Fortunately, they give a plentitude of manifolds which admit such an admissible splitting in the paper, making it rather simple to reproduce similiar results to theirs for other tangential types $\t$.
+They also take care of the case $B = \BSO$ themselves, and remark:
+\begin{displayquote}\itshape
+    Using the methods of this paper and computations in cobordism theory, one can prove partial results for many other [tangential] $2$-types, such as $\BO$, $\BO\times\B G$ or $\BSO\times\B G$. We refrain from stating them.
+\end{displayquote}
+This thesis proves such a partial result for the tangential $2$-type $(\BO,\id)$ using exactly these methods. 
+\pagebreak{}
+
+\section*{Structure}
+A supplementary goal of this text is to give a detailed yet concise introduction to the language of tangential structures, which is hard to find in the literature up to now.
+This introduction is given in \hyperlink{section.1}{chapter 1 of this work}, culminating in a classification of all possible tangential $2$-types into six families.
+We will find, that a manifold has tangential type $\id\colon\BO \to \BO$, if it is nonorientable, and neither the manifold nor its universal cover admit a spin structure.
+\hyperref[sec:bordism]{Chapter 2} introduces the bordism group $\Omega_\ast^\t$ for a general tangential structure $\t$, and finishes with an in depth study of the unoriented bordism ring $\NN_\ast = \Omega_\ast^\BO$.
+\hyperref[sec:psc]{The last chapter} introduces the reader very briefly to the world of scalar curvature by gathering the neccesary ingredients to apply the theorem from \cite{ew:psc}.
+Then in the \hyperlink{subsection.3.2}{final section of the last chapter}, all comes together to prove the main theorem of this thesis:
+\begin{theorem*}
+    Let $d\in\N$ be odd or $d>10$. Let $M,M^\prime$ be $d$ dimensional nonorientable manifolds with fundamental group $\zz$ and nonspinnable universal cover. Then $\mR^+(M)\whe \mR^+(M^\prime)$.
+\end{theorem*}
+We also state and prove according theorems for $d=6,8,10$, where there are up to $4$ possible homotopy types of $\mR^+(M)$. 
+In dimensions less than $4$ we show that there are no manifolds of tangential type $\id_\BO$.
+There are no results in dimension $4$.
+The computation giving the desired result in the end consists of only very elementary considerations and may be appreciated by a wide audience, as the technical ingredients can be black-boxed at will.
+In a nutshell: The magic of the machinery built by the ones before us makes it possible to prove theorems about positive scalar curvature without having the slightest idea about scalar curvature.

@@ -1,0 +1,132 @@
+\ProvidesPackage{custompkgs/theorems}
+
+%% Theorems
+% blueprintstlyle
+\newtheoremstyle{thesisblueprintstyle}% name of the style to be used
+  {0pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {0pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {\upshape\color{themecolordark}}% name of font to use in the body of the theorem
+  {0pt}% measure of space to indent
+  {\bfseries}% name of head font
+  {}% punctuation between head and body
+  { }% space after theorem head; " " = normal interword space
+  {\color{\themecolordark}\thmname{#1}\thmnumber{ #2}\textnormal{\thmnote{ (\textit{#3})}}}
+
+\theoremstyle{thesisblueprintstyle}
+
+% environment for the theorem blueprint
+\mdfsetup{skipbelow=0}
+\mdtheorem[%
+roundcorner=3pt,
+outerlinewidth=2,%
+leftmargin=0,%
+rightmargin=0,%
+skipbelow=.4\baselineskip,%
+skipabove=.4\baselineskip,%
+linecolor=themecolordark,%
+linewidth=1pt,%
+ntheorem=true%
+]{blueprint}{Blueprint for theorems}
+
+% theoremstyle
+\newtheoremstyle{thesistheoremstyle}% name of the style to be used
+  {0pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {0pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {\upshape}% name of font to use in the body of the theorem
+  {0pt}% measure of space to indent
+  {\bfseries}% name of head font
+  {}% punctuation between head and body
+  { }% space after theorem head; " " = normal interword space
+  {\thmname{#1}\thmnumber{ #2}\textnormal{\thmnote{ (\textit{#3})}}}
+
+\theoremstyle{thesistheoremstyle}
+
+% mdframed theorem env
+\mdfsetup{skipbelow=0}
+\mdtheorem[%
+roundcorner=3pt,
+outerlinewidth=2,%
+leftmargin=0,%
+rightmargin=0,%
+skipbelow=.4\baselineskip,%
+skipabove=.4\baselineskip,%
+linecolor=gray,%
+linewidth=1pt,%
+ntheorem=true%
+]{theorem}{Theorem}
+
+% mdframed definition env
+\newmdtheoremenv[%
+outerlinewidth=2,%
+leftmargin=0,%
+innertopmargin=0,%
+rightmargin=0,%
+innertopmargin=0,%
+innerbottommargin=0,%
+skipbelow=.4\baselineskip,%
+skipabove=.4\baselineskip,%
+linecolor=gray,%
+topline=false,%
+bottomline=false,%
+rightline=true,%
+linewidth=2pt,%
+ntheorem=true%
+]{defi}{Definition}[section]
+
+% mdframed lemma env
+\newmdtheoremenv[%
+outerlinewidth=2,%
+leftmargin=0,%
+rightmargin=0,%
+innertopmargin=0,%
+innerbottommargin=0,%
+skipbelow=.4\baselineskip,%
+skipabove=.4\baselineskip,%
+linecolor=gray,%
+topline=false,%
+bottomline=false,%
+rightline=true,%
+linewidth=2pt,%
+ntheorem=true%
+]{thesislemma}[defi]{Lemma}
+
+\newmdtheoremenv[%
+outerlinewidth=2,%
+leftmargin=0,%
+rightmargin=0,%
+innertopmargin=0,%
+innerbottommargin=0,%
+skipbelow=.4\baselineskip,%
+skipabove=.4\baselineskip,%
+linecolor=gray,%
+topline=false,%
+bottomline=false,%
+rightline=true,%
+linewidth=2pt,%
+ntheorem=true%
+]{thesisprop}[defi]{Proposition}
+
+\newtheoremstyle{thesisquestionstyle}% name of the style to be used
+  {0pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {0pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {\normalfont\itshape}% name of font to use in the body of the theorem
+  {0pt}% measure of space to indent
+  {\color{gray}\normalfont\bfseries}% name of head font
+  {:}% punctuation between head and body
+  {  }% space after theorem head; " " = normal interword space
+  {\thmname{#1}\thmnumber{ #2}\textnormal{\thmnote{ (\textit{#3})}}}
+
+\theoremstyle{thesisquestionstyle}
+\newtheorem*{q}{Question}
+
+
+\theoremstyle{plain}
+\newtheorem*{bem}{Remark}
+
+%% environments
+% proofs
+\def\QEDmark{\ensuremath{\square}}
+\def\prf{\noindent\textbf{Proof: }}
+\def\endprf{\hfill\QEDmark\newline}
+
+

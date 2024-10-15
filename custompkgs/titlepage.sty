@@ -1,0 +1,19 @@
+\ProvidesPackage{custompkgs/titlepage}
+
+\newcolumntype{x}[1]{>{\raggedleft\arraybackslash\hspace{0pt}}p{#1}}
+
+\newcommand{\mytitlepage}{%
+\begin{center}
+    \huge{Master Thesis}\\
+    \vspace{3cm}
+    \includegraphics[width=\textwidth, trim=0 0 0 0, clip]{img/titlefig.png}\\
+    \vspace{2.5cm}
+    \normalsize
+    \begin{tabular}{x{3.5cm}p{7cm}}
+            \rule{0mm}{5ex}\textbf{author:}          &  \thesisauthor\newline \href{mailto:milan.zerbin@uni-a.de}{\Letter~milan.zerbin@uni-a.de} \\
+            \rule{0mm}{5ex}\textbf{supervisors:}      &  Dr. Georg Frenck, Prof. Bernhard Hanke                            \\
+            \rule{0mm}{5ex}\textbf{submission date:} & \submissiondate                              \\
+            \rule{0mm}{5ex}\textbf{school:} & University of Augsburg                              \\
+    \end{tabular}
+\end{center}
+}

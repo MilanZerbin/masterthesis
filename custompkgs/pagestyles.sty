@@ -1,0 +1,64 @@
+\ProvidesPackage{custompkgs/pagestyles}
+
+%% pages
+% pagestyle for titlepage
+\fancypagestyle{thesistitlepage}{%
+  \renewcommand{\headheight}{150pt}
+  \chead{\Huge\textbf{\thesistitle}}
+  \cfoot{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+% pagestyle for normal pages
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancypagestyle{plain}{%
+  \fancyhead[RO, LE]{\rightmark}
+  \fancyhead[LO, RE]{}
+  \fancyfoot[LO, RE]{\thesistitle}
+  \fancyfoot[RO, LE]{\thepage}
+  \cfoot{}
+  \chead{}
+  \renewcommand{\headheight}{15pt}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+% pagestyle for TOC
+\fancypagestyle{tocpage}{%
+  \chead{}
+  \rhead{\large\textbf{Table of Contents}}
+  \lhead{}
+  \cfoot{}
+  \rfoot{}
+  \lfoot{}
+  \renewcommand{\headheight}{15pt}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+% pagestyle for LIT
+\fancypagestyle{litpage}{%
+  \chead{}
+  \rhead{\large\textbf{Literature}}
+  \lhead{}
+  \cfoot{}
+  \rfoot{}
+  \lfoot{}
+  \renewcommand{\headheight}{15pt}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+% pagestyle for appendix pages
+\fancypagestyle{apppage}{%
+  \fancyhead[RO, LE]{Appendix}
+  \fancyhead[LO, RE]{}
+  \fancyfoot[LO, RE]{\thesistitle}
+  \fancyfoot[RO, LE]{\thepage}
+  \cfoot{}
+  \chead{}
+  \renewcommand{\headheight}{15pt}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+}

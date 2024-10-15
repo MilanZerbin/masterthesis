@@ -1,0 +1,127 @@
+As the spirit of this work is demonstrating how to prove theorems about positive scalar curvature with minimal knowledge of positive scalar curvature, we begin the first part of this chapter by only a very brief and by no means exhaustive introduction to scalar curvature, following \cite{stolz:survey} and \cite{carl:survey}.
+Subsequently, we give an overview of the results from our basis \cite{ew:psc} that are needed in our proof.\\
+In the \hyperlink{subsection.3.2}{second part of this chapter}, we then state and prove our main theorem.
+Exactly like promised in the introduction, the proof will proceed by using the results from the first part to show that most of the additive generators $\mathcal{E}$ from \ref{eprop} admit an admissible splitting.
+\subsection{Preliminaries}
+We choose the most geometrical definition of the three main approaches mentioned in \cite{carl:survey}.
+\begin{defi}[Scalar curvature]
+Let $(M,g)$ be a riemannian manifold of dimension $n$. 
+The scalar curvature of $g$ is the function $\scal_g\colon M\to \R$ that appears in the third coefficient
+\begin{equation*}
+    \frac{\vol(B_r(x))}{\vol(B_r^{\text{euklid}})} = 1 - \frac{\scal_g(x)}{6(n+2)}r^2 + \dots
+\end{equation*}
+    of the taylor expansion comparing the metric volume of a radius $r$ metric ball $B_r(x)\subset M$ around $x$ with the usual euclidian volume of the ball $B_r^{\text{euclid}} = \{x \in \R^n \:\vert\: \lVert x \rVert \leq r\}$.
+\end{defi}
+We instantly obtain that the scalar curvature of euclidean space $\R^n$ with the usual flat euclidean metric is zero.
+Furtheremore, if $(M,g)$ is a riemannian manifold, and $G$ is a discrete group acting freely on $M$ by isometries, then we obtain an induced metric $g^\prime$ on the quotient $M^\prime = M/_G$.
+With this metric, the canonical projection $p\colon M\to M^\prime$ is a local isometry, and we hence have $\scal_g(x) = \scal_{g^\prime}(p(x))$.
+Thus the Torus $T^n = \R^n/\Z^n$ also has a flat metric of scalar curvature zero.
+\begin{defi}[\psc]
+    A metric $g$ on a manifold $M$ is called \psc-metric, if $\scal_g > 0$ everywhere. A manifold $M$ is called \psc-manifold, if it admits such a metric
+\end{defi}
+The unit sphere $S^n\subset \R^{n+1}$ is the primary example of a \psc-manifold.
+We denote its metric by $g_{\text{round}}$.
+As can be easily calculated, its scalar curvature is constant, and given by 
+\begin{equation*}
+    \scal_{g_{\text{round}}}(x) = n(n-1)
+\end{equation*}
+By the same argument as above, $\RP^n = S^n/_{\zz}$ is thererfore also a \psc-manifold.
+The following are direct consequences of the definition and some calculation:
+\begin{thesislemma}
+    Let $(M,g)$ and $(M^\prime, g^\prime)$ be riemannian manifolds and $\lambda\in\R^+$. Then
+    \begin{enumerate}[label=\roman*.,noitemsep]
+        \item $\scal_{g\oplus g^\prime}(x,x^\prime) = \scal_g(x) + \scal_{g^\prime}(x^\prime)$ for any $(x,x^\prime)\in M\times M^\prime$.
+        \item $\scal_{\lambda g}(x) = \frac{1}{\lambda} \scal_g(x)$ for all $x\in M$.
+    \end{enumerate}
+\end{thesislemma}
+Gromov even advocates an axiomatic characterization of scalar curvature \cite{grom:four}, consisting of the two properties from the lemma as well as a normalization and a volume comparison property.
+Thus the two properties from the lemma ought to be the only thing we need when proving simple statements about scalar curvature, such as this first existence result.
+\begin{thesisprop}\label{prodpsc}
+    Let $g$ be a \psc-metric on $M$, and $M^\prime$ any manifold. Then $M\times M^\prime$ admits a \psc-metric.
+\end{thesisprop}
+\prf
+Choose any metric $g^\prime$ on $M^\prime$.
+By compactness, $\scal_{g^\prime} \geq -k$ for some $k\in \N$.
+Similarly by compactness, there exists an $\varepsilon > 0$ with $\scal_g \geq \varepsilon$.
+Consider the metric $tg \times g^\prime$ on $M\times M^\prime$ with $t < \varepsilon / k$.
+By above lemma we compute
+\begin{equation*}
+    \scal_{tg \times g^\prime}(x,x^\prime) = \frac{1}{t}\scal_g(x) + \scal_{g^\prime}(x^\prime) > \frac{k}{\varepsilon} \varepsilon - k = 0.
+\end{equation*}
+Hence we have found a metric of positive scalar curvature.
+\endprf
+Intuitively, the above proof is described by shrinking $M$ to blow up the scalar curvature.
+A way more difficult existence result, the proof of which goes way beyond the scope of this exposition, is the famous surgery result from \cite{gl:scpsc} and \cite{sy:scpsc}.
+\begin{theorem*}[Gromov--Lawson--Schoen--Yau, 1979-1980]
+    Let $M$ be a \psc-manifold and $M^\prime$ be any manifold which can be obtained from $M$ by a codimension $3$ surgery. Then $M^\prime$ admits a \psc-metric too.
+\end{theorem*}
+As an immediate application, the connected sum $M\connsum M^\prime$ (a dimension $0$ surgery) of two $n$-dimensional \psc-manifolds $M,M^\prime$ admits a \psc-metric if $n\geq 3$.
+This theorem was the begin of the connection of scalar curvature to bordism that ultimately results in a variant of Chernysh's theorem proven in this generality first in \cite{georg:diss}.
+\begin{theorem*}[Chernysh, 2004]
+    Let $M,M^\prime$ be two $d$-dimesional manifolds of tangential $2$-type $\t$. 
+    Then $[M]\equiv [M^\prime]$ in $\Omega_d^\t$ implies $\mR^+(M) \whe \mR^+(M^\prime)$.
+\end{theorem*}
+It shows how to compare the spaces of \psc-metrics for bordant manifolds. 
+Such a comparison theorem for nonbordant manifolds is the 
+theorem which we wish to apply to obtain our result:
+\begin{theorem*}[Ebert--Wiemeler, 2022]
+    Let $M$ and $M^\prime$ be $d$-Manifolds of tangential $2$-type $(B,\t)$ and $x\in \Omega_d^\t$ a bordism class containing a representative with \emph{admissible splitting}, such that $[M] \equiv [M^\prime] + x$ in the $\t$-bordism group $\Omega_d^\t$, then there is a weak homotopy equivalence
+    \begin{equation*}
+        \mR^+(M) \whe \mR^+(M^\prime)
+    \end{equation*}
+    provided that $d\geq 5$.
+\end{theorem*}
+To syntactically understand the above theorem we need to introduce the space of metrics, explain its topology, and introduce the notion of admissible splittings.
+Let us begin with the former:
+A riemannian metric on $M$ is but a smooth choice of nondegenerate bilinear mappings $T_pM\times T_p M\to \R$ for each $p\in M$, or in other words a smooth section of the bundle $T^\ast M \otimes T^\ast M \to M$.
+The space of all such sections $\Gamma (T^\ast M \otimes T^\ast M)$ may be given the usual $C^\infty$-topology, since $M$ is compact.
+We than equip
+\begin{equation*}
+    \mR^+(M) = \{ g \:\vert\: g \text{ riemannian metric with } \scal_g > 0\} \subset \Gamma(T^\ast M \otimes T^\ast M )
+\end{equation*}
+with the subspace topology.
+We move on towards the definition of an admissible splitting.
+Let $W$ be a $\t$-bordism $M_0\bord M_1$, and $h_0,h_1$ riemannian metrics on $M_0,M_1$. 
+We denote 
+\begin{equation*}
+    \mR^+(W)_{h_0,h_1} = \{ g \text{ riem.~ metric on } W \:\vert\: g = h_i\oplus dt^2 \text{ around } M_i, \scal_g >0\}.
+\end{equation*}
+It is the space of \psc-metrics on $W$ that are locally of product form at the boundary and restrict to the given metrics $h_i$ there.
+By additivity, $\scal_g > 0$ implies $\scal_{h_i} > 0$, so $\mR^+(W)_{h_0,h_1} = \emptyset$ whenever one of the $h_i$ is not \psc.
+Given another bordism $W^\prime\colon M_1 \bord M_2$, there is a gluing map 
+\begin{equation*}
+    \mu_{W,W^\prime}\colon \mR^+(W)_{h_0,h_1} \times \mR^+(W^\prime)_{h_1,h_2} \to \mR^+(W\cup_{M_1} W^\prime)_{h_0,h_2}
+\end{equation*}
+which sends $(g,g^\prime)$ to $g\cup g^\prime$, which is well defined as $g$ and $g^\prime$ are locally of product form around $M_1$ and hence agree at $M_1$.
+We call a metric $g\in\mR^+(W)_{h_0,h_1}$ on $W\colon M_0\bord M_1$ right stable, if for all riemannian manifolds $(M_2,h_2)$ with $\scal_{h_2}>0$ and all $W^\prime\colon M_1 \bord M_2$ the partial gluing map
+\begin{equation*}
+    \mu_{W,W^\prime}(g,\bullet)\colon \mR^+(W^\prime)_{h_1,h_2} \to \mR^+(W\cup_{M_1} W^\prime)_{h_0,h_2}
+\end{equation*}
+is a weak homotopy equivalence.
+Call the metric $g$ in strong analogy left stable, if for all riemannian manifolds $(M_{-1},h_{-1})$ with $\scal_{h_{-1}}>0$ and all bordisms $W_\prime\colon M_{-1}\bord M_0$ the partial gluing map $\mu_{W_\prime,W}(\bullet,g)$ is a weak equivalence.
+\begin{defi}[Admissible splitting]
+    An admissible splitting of a (closed) $d$-manifold is a decomposition $M = M_0\cup_{N} M_1$ into two bordisms
+    \begin{equation*}
+        \emptyset \overset{M_0}{\bord} N \overset{M_1}{\bord} \emptyset
+    \end{equation*}
+    such that the inclusions $N\hookrightarrow M_i$ are $2$-connected and there are metrics $h_i\in\mR^+(N)$ and $g_i \in \mR^+(M_i)_{h_i}$ such that ...
+    \begin{enumerate}[noitemsep, label=...]
+        \item $g_0$ is right stable
+        \item $g_1$ is left stable
+        \item $h_0$ and $h_1$ are in the same path-component of $\mR^+(N)$.
+    \end{enumerate}
+\end{defi}
+Any manifold admitting an admissible splitting is a \psc-manifold.
+Take any path $h_t$ from $h_0$ to $h_1$ and interpret it as a \psc-metric $h_\bullet\in\mR^+(N\times[0,1])_{h_0,h_1}$. 
+Then by gluing we obtain a \psc-metric $g_0\cup h_\bullet \cup g_1$ on $M_0\cup_N N\times[0,1]\cup_N M_1$.
+The latter is diffeomorphic to $M$ so $M$ admits a \psc-metric.\\
+Ebert and Wiemeler give a result to construct manifolds with admissible splittings from manifolds with a decomposition into disk bundles, which will be key to our proof in the next section.
+It is to be viewed as an analogue of \ref{prodpsc} for admissible splittings.
+\begin{thesislemma}[Ebert--Wiemeler, prop.~5.2 in \cite{ew:psc}]\label{diskbdlsplit}
+    Let $E_i \to M_i$ be two rank $n\geq 3$ vector bundles. 
+    Let $M$ be obtained by gluing together their disk bundles $M = D(E_1)\cup_\psi (-D(E_2))$ along a diffeomorphism $\psi\colon S(E_1) \to S(E_2)$. 
+    Let $M^\prime$ be any manifold that admits a \psc-metric. Then $M\times M^\prime$ has an admissible splitting.
+\end{thesislemma}
+Taking this lemma into consideration led to a significantly streamlined version of the proof of our main theorem below.
+Our thanks go to Johannes Ebert for reminding the author via email of its importance, which was originally overlooked.
+

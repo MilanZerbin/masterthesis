@@ -1,0 +1,163 @@
+\subsection{Unoriented bordism}
+The most elementary shade of bordism is unoriented bordism, that entails to picking $\t=\id\colon \BO \to \BO$ in our framework.
+We call the resulting bordism ring $\NN_\ast = \Omega_\ast^{\id_\BO}$.
+Since every manifold has a canonical $\id_{\BO}$-structure, we have in $\NN_d$ just all closed $d$-manifolds.
+The relation is the classical bordism relation $[M] = [M^\prime]$ if and only if there exists $W$ with $\partial W \cong M \amalg M^\prime $.
+The opposite of $M$ for the $\id_\BO$ structure is just $M$.
+Thus every element in $\NN_\ast$ is its own additive inverse, and $\NN_\ast$ is a $\zz$-module. 
+Famously, Ren\'e Thom in his thesis \cite{thom:bord} translated the question of computing the unoriented bordism groups $\NN_d$ to a question of homotopy theory, which he was then able to solve.
+\begin{theorem*}[Thom, 1954]
+    Two manifolds are unoriented bordant, if and only if their Stiefel--Whitney-numbers agree.
+\end{theorem*}
+This spectacular result marks one of the few times where the agreeing of invariants from algebraic topology gives a sufficient and not only neccesary condition for equality.
+Thom moreover computed the structure of $\NN_\ast$: 
+The unoriented bordism ring is a $\zz$-algebra with precicely one (multiplicative) generator in each degree $d\neq 2^k - 1$.
+Furthermore, he showed that the even dimensional generators are given by the classes $[\RP^{2i}]$. 
+Two years later, Albrecht Dold \cite{dold:bord} completed the picture introducing the Dold--Manifolds $P(m,n)$ we discussed \hyperlink{doldmnf}{at the end of chapter 1} and thus proving
+\begin{theorem*}[Thom--Dold, 1956]
+    There is an isomorphism of $\zz$-algebras
+    \begin{equation*}
+        \zz[x_2,x_4,x_5,x_6,x_8,x_9,\cdots]\to\NN_\ast
+    \end{equation*}
+    mapping $x_{i}$ to $[\RP^{i}]$ for even $i$, and $x_i$ to $[P(2^r-1,s2^r)]$ for $i = 2^r(2s + 1) - 1$ where $i$ odd and $i\neq 2^j - 1$. All numbers mentioned are nonnegative whole numbers.
+\end{theorem*}
+For the theorem to be well-stated we must have a unique representation of an odd number $i = 2j -1$ as a term of form $2^r(2s + 1) -1$.
+This representation is of course given by the prime decomposition of the even number $2j$ giving $2j = 2^r l$ for an odd $l = 2s + 1$.
+Indeed the dimensions also fit:
+\begin{equation*}
+    \dim \big( P(2^r -1 , s2^r) \big) = \dim \big( S^{2^r -1} \times \CP^{s2^r} /_\sim \big) = (2^r - 1) + (2(s2^r)) = 2^r(2s + 1) - 1 = i.
+\end{equation*}
+Thus we may interpret the index of the generators as the degree and obtain an isorphism of graded algebras. 
+In the following text, we will use the symbol $x_i$ interchangable with its image under this isomorphism.\\
+The additive structure of $\NN_\ast$ will be of more importance than the multiplicative structure for this work, so we shift our attention there.
+How many additive generators are there in dimension $d$?
+Since every additive generator is built from a collection of multiplicative generators with totaled dimension $d$, we have a one--to--one-correspondence
+\begin{equation*}
+    \begin{Bmatrix} \text{Partitions } (i_1, \dots ,i_k) \\ \text{ of } d = i_1 + \dots + i_k \\ \text{ with } i_\ast \neq 2^j - 1 \end{Bmatrix} \overset{1:1}{\longleftrightarrow}
+    \begin{Bmatrix} \text{Additive generators } \\ x_{i_1} \cdots x_{i_k} \text{ of } \NN_d \end{Bmatrix}
+\end{equation*}
+So the dimension of $\NN_d$ as a $\zz$-vectorspace is given by the amount $a(d)$ of such partitions of $d$ that dont allow Mersenne-numbers, \ie elements of the form $2^j - 1$.
+As bordism classes are simply elements of the vector space $\NN_d$, the amount of bordism classes of manifolds of dimension $d$ is hence given by $2^{a(n)}$.
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{img/tikz/ubord.pdf}
+    \caption{The dimensions $a(d)$ of $\NN_d$ as a $\zz$-module, \href{https://oeis.org/A078657}{Sequence A078657} in the online Encyclopedia of integer sequences. Also contains the amount $2^{a(d)}$ of distinct bordism classes in $\NN_d$.}\label{fig:ubord}
+\end{figure}
+See \fref{fig:ubord} for some lowdimensional examples.
+Just by these few observations we have casually shown that every closed $3$-manifold arises as the boundary of a $4$-manifold, demonstrating the power of these results.\\
+To shed more light on Thom's first theorem, recall that the Stiefel--Whitney-number of a $d$-Manifold $M$ corresponding to the partition $(i_1,\dots , i_k)$ of $d= i_1 + \dots + i_k$ is given by 
+\begin{equation*}
+    \langle w_{i_1}(M) \smile \cdots \smile w_{i_k}(M) , [M]\rangle
+\in \zz
+\end{equation*}
+where $[M]$ denotes the $\zz$-fundamental class of $M$.
+We will now as an example compute the Stiefel--Whitney-numbers of some manifolds to illustrate the process.
+As we have already seen, the total Stiefel--Whitney-class of $\CP^2$ is given by $(1 + b)^3$ with $\deg(d) = 2$, so we obtain \begin{equation*}
+    w_1 = 0, w_2 = b, w_3 = 0, w_4 = b^2
+\end{equation*}
+There are five partitions of $d = 4$, giving rise to the top degree $H^4(\CP^2;\zz)$ classes 
+\begin{equation*}
+    \begin{split}
+        w_1\smile w_1 \smile w_1 \smile w_1 & \leftrightarrow 0 \\
+        w_1\smile w_1 \smile w_2 & \leftrightarrow 0 \\
+        w_1\smile w_3 & \leftrightarrow 0 \\
+        w_2\smile w_2  & \leftrightarrow b^2 \\
+        w_4  & \leftrightarrow b^2 
+    \end{split}
+\end{equation*}
+By Poincar\'e-duality, the fundamental class $[\CP^2]$ is the dual of the unique nontrivial element $b^2 \in H^4(\CP^2;\zz)$.
+Therefore pairing above classes with the fundamental class simply amounts to counting occurences of $b^2$ modulo two.
+We therefore get only two nonzero Stiefel--Whitney-numbers, the one corresponding to $(2,2)$ as well as the one corresponding to $(4)$.\\
+As a second example, let us compute the Stiefel--Whitney-numbers of $\RP^2\times \RP^2$, another nontrivial element in $\NN_4$.
+The total Stiefel--Whitney-class is given by the Whitney product theorem as $w = (1 + a)^3(1 + b)^3$ with relations $a^3 = b^3 = 0$.
+We thus obtain the Stiefel--Whitney-classes
+\begin{equation*}
+    w_1 = a + b, w_2 = a^2 + ab + b^2, w_3 = a^2 b + a b^2, w_4 = a^2 b^2
+\end{equation*}
+Computing for each partition the product of those classes yields
+\begin{equation*}
+    \begin{split}
+        w_1\smile w_1 \smile w_1 \smile w_1 & \leftrightarrow a^4 + b^4 = 0 \\
+        w_1\smile w_1 \smile w_2 & \leftrightarrow (a^2 + b^2)(a^2 + ab + b^2) = 0 \\
+        w_1\smile w_3 & \leftrightarrow (a + b)(a^2 b + b^2 a) = 2a^2 b^2 = 0 \\
+        w_2\smile w_2  & \leftrightarrow 3 a^2b^2 = a^2b^2\\
+        w_4  & \leftrightarrow a^2b^2 
+    \end{split}
+\end{equation*}
+Then after counting the occurences of the top class $a^2b^2$, we have again only the same two nonvanishing Stiefel--Whitney-numbers as with $\CP^2$.
+Applying the theorem of Thom, we have shown that $\CP^2$ and $\RP^2 \times \RP^2$ are bordant.
+This is by no means a coincidence, as first noted (hearsay, as it is in russian) by Vladimir Rokhlin in \cite{rokhlin:bord}:
+\begin{thesislemma}[Rokhlin's trick]\label{rokhlintrick}
+    For all $n$ the $2n$-manifolds $\RP^n \times \RP^n$ and $\CP^n$ are bordant.
+\end{thesislemma}
+\prf
+This proof is just a slightly expanded version of the original proof of Wall in \cite{wall:bord}.
+By the theorem of Thom, it suffices to give an argument why all Stiefel--Whitney-numbers of the manifolds agree.
+First note, that for any manifold $M$ we have by the Whitney product theorem and the symmetry of the cup product
+\begin{equation*}
+    w_k(M\times M) = \sum\limits_{i + j = k} w_i(M)\smile w_j(M) = 
+    \begin{cases} 0 & k \text{ odd,} \\ w_{k/2}(M) \smile w_{k/2}(M) & k \text{ even.} \end{cases}
+\end{equation*}
+Thus any Stiefel--Whitney-number containing an odd element in the partition automatically vanishes.
+Moreover, for any strictly even partition $(2i_1,\dots ,2i_k)$ we calculate
+\begin{equation*}
+    w_{2i_1}(M\times M)\smile \cdots \smile w_{2i_k}(M\times M)
+    = \big(w_{i_1}(M) \smile \cdots \smile w_{i_k}(M)\big)^{\smile 2} 
+\end{equation*}
+Pairing this with the fundamental class $[M\times M] = [M]\otimes [M]$ using the Künneth-theorem, we get the square of the Stiefel--Whitney-number of $M$ corresponding to $(i_1,\dots ,i_k)$.
+In $\zz$, an element is zero if and only if its square is zero.
+Thus nonzero Stiefel--Whitney-numbers of $M$ are in one to one correspondence with those of $M\times M$ by "doubling" partitions.\\
+The total Stiefel--Whitney-class $(1 + b)^{n+1}$ of $\CP^n$ may be obtained from the total Stiefel--Whitney-class $(1+a)^{n+1}$ of $\RP^n$ by formally doubling the degree of the generator $a$.
+Therefore the Stiefel--Whitney-classes of $\CP^n$ are also obtained from those of $\RP^n$ by formally doubling degrees, and equally the Stiefel--Whitney-numbers by doubling partitions.
+Hence the Stiefel--Whitney-numbers of $\CP^n$ and $\RP^n\times\RP^n$ agree.
+\endprf
+We note that exactly the same proof shows $[\CP^n\times\CP^n] = [\HP^n]$ since again $w(\HP^n) = (1 + c)^{n+1}$ for a sole degree $4$ generator $c$ of $H^\ast(\HP^n;\zz)$ subject only to the relation $c^{n+1}=0$.
+The above proof is as simple as it is unsatisfying,
+Wall indeed comments:
+\say{The author feels that it ought to be proved by constructing a manifold with appropriate boundary, but has been unable to find one}.
+In a cute and very explicit two-page paper \cite{stong:cob}, Stong provides such a manifold twelve years later.
+Combining the above with our knowledge of the ring $\NN_\ast$, we obtain the more general
+\begin{thesisprop}
+    The square $M\times M$ of any manifold $M$ is bordant to an orientable manifold.
+\end{thesisprop}
+\prf
+Write $M$ as a product of generators $x_i$.
+The square of a product is the product of the squares.
+If $i$ is even, the above lemma gives $x_i^2 = [\CP^n]$ which is orientable. 
+If $i$ is odd, the Dold-manifold $x_i = [P(2^r - 1, s2^r)]$ has odd first entry and even second entry.
+Thus by our computation in \fref{fig:pmn}, the Dold-manifold is already orientable and so is its square.
+\endprf
+Again a more direct construction of such a bordism would be desirable, Wall notes.
+As to our knowledge, no such construction exists to the present day. 
+There is another view on this proposition:
+On an orientable manifold, every Stiefel--Whitney-number containing a copy of $w_1$ vanishes.
+A neccesary condition for a manifold to be bordant to something orientable thus by Thom's theorem given by the vanishing of all Stiefel--Whitney-numbers containing a $1$ in the partition.
+It is not too hard to prove, that this condition is actually also sufficient, we refer to \cite{wall:bord} but skip the proof here as it neccesitates some discussion of the oriented bordism ring.
+As we have computed, on any square $M\times M$ all odd Stiefel--Whitney-classes vanish, giving another proof of the proposition since $1$ is an odd number.
+Since we saw that the odd Stiefel--Whitney-classes all vanish on any square, in the same spirit one could ask
+\begin{q}
+    Let $M$ be a even dimensional manifold such that all Stiefel--Whitney-numbers of $M$, that contain an odd number in their corresponding partition vanish.
+    Is $M$ bordant to a square $N\times N$?
+\end{q}\noindent{}
+The answer to this question eludes us for now.
+We will instead continue using our gained knowledge to describe a general additive generator of the bordism ring $\NN_\ast$.
+\begin{thesisprop}\label{eprop}
+    Call $\mathcal{E}$ the set containing all manifolds of form
+    \begin{equation*}
+        \prod\limits_{i\in I} (\CP^i)^{n_i} \times \prod\limits_{j\in J} (\RP^{2j})^{o_j} \times \prod\limits_{k\in K}{P(2^{r_k} - 1,s_k2^{r_k})}
+    \end{equation*}
+    with $I,J,K$ finite subsets of the natural numbers, $n_i,r_k,s_k$ positive natural numbers and $o_j \in \{0,1\}$.
+    Then $\mathcal{E}$ generates $\NN_\ast$ additively.
+\end{thesisprop}
+\prf
+As discussed, the set of products of form $\prod_{j\in J} x_j^{n_j}$ is a set of additive generators.
+Factoring out the even powers of even $x_i$ and applying \hyperref[rokhlintrick]{Rokhlin's trick} repeatedly gives the result.
+\endprf
+We conclude this chapter with a verbose list of the additive generators of $\NN_\ast$ in the first couple dimensions following the notation of the proposition, see \fref{fig:boboring}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{img/tikz/boboring.pdf}
+    \caption{Additive generators of the first fourteen unoriented bordism groups.}\label{fig:boboring}
+\end{figure}
+This list, as well as the highly algorithmic computations of Stiefel--Whitney-numbers in this chapter have of course been generated or verified with computer assistance.
+For a neat Haskell-program performing these sorts of computations, see \hyperlink{appendix}{the appendix of this work}.

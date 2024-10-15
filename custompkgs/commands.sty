@@ -1,0 +1,97 @@
+\ProvidesPackage{custompkgs/commands}
+
+%% Nice to have
+% some shorthands
+\newcommand{\N}{\ensuremath{\mathbb{N}}} % natural numbers
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}} % integers
+\newcommand{\zz}{\ensuremath{\Z_2}}
+\newcommand{\NN}{\ensuremath\mathfrak{N}} % unoriented bordism
+\newcommand{\R}{\ensuremath{\mathbb{R}}} % reals
+\newcommand{\HH}{\ensuremath{\mathbb{H}}} % quaternions
+\newcommand{\K}{\ensuremath{\mathbb{K}}} % generic field
+\newcommand{\C}{\ensuremath{\mathbb{C}}} % complex numbers
+\newcommand{\id}{\ensuremath{\operatorname{id}}} % identity
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\Aut}{\ensuremath{\operatorname{Aut}}}
+\newcommand{\weq}{\ensuremath\simeq}  % weak homotopy eq.
+
+% declare absolute value, norm, ...
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\simp}{\langle}{\rangle}
+
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\let\oldsimp\simp
+\def\simp{\@ifstar{\oldsimp}{\oldsimp*}}
+\makeatother
+
+% Topic specific shorthands
+\DeclareMathOperator{\lspan}{span} % linear span
+\DeclareMathOperator{\const}{const}
+\renewcommand{\O}{\mathrm{O}}
+\newcommand{\B}{\mathrm{B}}
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\BO}{\mathrm{BO}}
+\newcommand{\BE}{\mathrm{BE}}
+\newcommand{\BSO}{\mathrm{BSO}}
+\newcommand{\BSpin}{\mathrm{BSpin}}
+\newcommand{\st}{\tau}
+\newcommand{\fib}{\dashrightarrow}
+\newcommand{\im}{\operatorname{img}}
+\renewcommand{\hom}{\operatorname{Hom}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\Ext}{\operatorname{Ext}}
+\newcommand{\iso}{\cong}
+\newcommand{\whe}{\simeq}
+\newcommand{\he}{\simeq}
+\renewcommand{\t}{\theta}
+\newcommand{\connsum}{\mathrel\#}
+\newcommand{\KP}{\mathbb{K}\mathrm{P}}
+\newcommand{\RP}{\mathbb{R}\mathrm{P}}
+\newcommand{\CP}{\mathbb{C}\mathrm{P}}
+\newcommand{\HP}{\mathbb{H}\mathrm{P}}
+\newcommand{\bord}{\rightsquigarrow}
+\newcommand{\hofib}{\operatorname{hofib}}
+\newcommand{\eval}{\operatorname{eval}}
+\newcommand{\scal}{\ensuremath\mathrm{scal}}
+\newcommand{\vol}{\ensuremath\mathrm{vol}}
+\newcommand{\psc}{\textsc{PSC}}
+\newcommand{\mR}{\ensuremath\mathcal{R}}
+
+% stylistic choices
+\renewcommand{\emptyset}{\varnothing}
+\renewcommand{\amalg}{\sqcup} % disjoint union
+
+% more complicated commands
+% Restriction of functions
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \right|_{#2} % this is the delimiter
+  }}
+
+% quotients
+ \newcommand\quotient[2]{
+        \mathchoice
+            {% \displaystyle
+                \text{\raise1ex\hbox{$#1$}\Big/\lower1ex\hbox{$#2$}}%
+            }
+            {% \textstyle
+                #1\,/\,#2
+            }
+            {% \scriptstyle
+                #1\,/\,#2
+            }
+            {% \scriptscriptstyle
+                #1\,/\,#2
+            }
+    }
+
+% roman numerals
+\renewcommand{\RN}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\rn}[1]{\lowercase\expandafter{\romannumeral #1\relax}}
