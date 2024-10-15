@@ -11,18 +11,20 @@ This work obtains a similar result in a nonorientable case.
 
 The thesis is mainly structured into three blocks:
  
- -[ ] Introduction to manifolds with extra Structure (so called theta-structures)
- -[ ] Description of the bordism with thetastructure
- -[ ] Proof of the above mentioned Result
+ - [ ] Introduction to manifolds with extra Structure (so called theta-structures)
+ - [ ] Description of the bordism with thetastructure
+ - [ ] Proof of the above mentioned Result
 
 
 ## Repository Structure
 
 There is a main.tex file which should be built via the building path
 
-> pdflatex -shell--escape main.tex
-> biber main
-> pdflatex -shell--escape main.tex
-> pdflatex -shell--escape main.tex
+```
+pdflatex -shell--escape main.tex
+biber main
+pdflatex -shell--escape main.tex
+pdflatex -shell--escape main.tex
+```
 
 to result in complete and correct interlinking, as well as the references section.
