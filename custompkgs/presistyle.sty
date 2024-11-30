@@ -1,0 +1,68 @@
+\ProvidesPackage{../custompkgs/presistyle}
+
+\newcommand{\sectionframe}[1]{%
+\begin{frame}%
+    \centering%
+    \includegraphics[width=.7\linewidth]{#1}\\\vfill
+{\color{themecolor}\Large{\insertsectionhead}}\end{frame}}
+
+%theoremstyle with circled theorems
+\makeatletter
+\def\th@mystyle{%
+    \normalfont % body font
+    \setbeamercolor{block title example}{bg=\beamerbgcolor,fg=themecolor}
+    \setbeamercolor{block body example}{bg=\beamerbgcolor,fg=\beamertextcolor}
+    \def\inserttheoremblockenv{exampleblock}
+  }
+\makeatother
+\theoremstyle{mystyle}
+\newtheorem*{mythm}{Theorem}
+\newtheorem*{mydefi}{Definition}
+\newtheorem*{mylem}{Lemma}
+
+
+\newenvironment{thm}[1][]{%
+    \begin{tcolorbox}[colback=\beamerbgcolor,colframe=\beamertextcolor]%
+    \vspace{-\baselineskip}%
+    \vspace*{.5\baselineskip}%
+    \begin{mythm}[#1]
+}{
+    \end{mythm}%
+    \end{tcolorbox}%
+    }
+\newenvironment{defi}[1][]{%
+    \begin{tcolorbox}[colback=\beamerbgcolor,colframe=\beamertextcolor]%
+    \vspace{-\baselineskip}%
+    \vspace*{.5\baselineskip}%
+    \begin{mydefi}[#1]
+}{
+    \end{mydefi}%
+    \end{tcolorbox}%
+    }
+\newenvironment{lem}[1][]{%
+    \begin{tcolorbox}[colback=\beamerbgcolor,colframe=\beamertextcolor]%
+    \vspace{-\baselineskip}%
+    \vspace*{.5\baselineskip}%
+    \begin{mylem}[#1]
+}{
+    \end{mylem}%
+    \end{tcolorbox}%
+    }
+
+% Makes it possible to stop the numbering at some point
+\usepackage{appendixnumberbeamer}
+\renewcommand{\appendixname}{\texorpdfstring{\translate{appendix}}{appendix}}
+
+% hack the section to the place where the pagenum should be
+\makeatletter
+\let\oldshowpagenum\showpagenum
+\renewcommand{\showpagenum}{%
+  \ifx\insertsectionhead\@empty% when we have no section yet
+  \else%
+  \sectionname{} \thesection{}: %
+  \insertsectionhead%
+  \fi%
+}
+\makeatother
+
+
